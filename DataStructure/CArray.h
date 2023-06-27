@@ -41,6 +41,43 @@ public:
 	int capacity() { return max_count; }
 	void clear();
 
+	class iterator;
+	iterator begin();
+	iterator end();
+
+	class iterator
+	{
+	private:
+		CArr* pArr;
+		T* pData;
+		int idx;
+
+	public:
+		iterator()
+			: pArr(nullptr)
+			, pData(nullptr)
+			, idx(-1)
+		{}
+
+		iterator(CArr* _pArr, T* _pData, int _idx)
+			: pArr(_pArr)
+			, pData(_pData)
+			, idx(_idx)
+		{}
+
+		~iterator(CArr* _pArr, T* _pData, int _idx)
+		{}
+
+		T& operator * ()
+		{
+			if (pArr->pData != pData || -1 == idx)
+				assert(nullptr);
+			return pData[idx];
+		}
+
+		
+	};
+
 };
 
 template<typename T>
@@ -78,4 +115,19 @@ inline void CArr<T>::clear()
 	}
 	data_count = 0;
 	max_count = 0;
+}
+
+template<typename T>
+inline typename CArr<T>::iterator CArr<T>::begin()
+{
+	if (0 == data_count)
+		return iterator(this, pData, -1);
+	else
+		return iterator(this, pData, 0);
+}
+
+template<typename T>
+inline typename CArr<T>::iterator CArr<T>::end()
+{
+	return iterator(this, pData, -1);
 }

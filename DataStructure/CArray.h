@@ -1,4 +1,5 @@
 #pragma once
+#include <cassert>
 
 template<typename T>
 class CArr
@@ -65,7 +66,7 @@ public:
 			, idx(_idx)
 		{}
 
-		~iterator(CArr* _pArr, T* _pData, int _idx)
+		~iterator()
 		{}
 
 		T& operator * ()
@@ -122,6 +123,18 @@ public:
 			iterator copy_iter(pArr, pData, idx);
 			--(*this);
 			return copy_iter;
+		}
+
+		bool operator == (const iterator& _otheriter)
+		{
+			if (pArr == _otheriter.pArr && idx == _otheriter.idx)
+				return true;
+			return false;
+		}
+
+		bool operator != (const iterator& _otheriter)
+		{
+			return !(*this == _otheriter);
 		}
 
 	};

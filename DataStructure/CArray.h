@@ -75,7 +75,55 @@ public:
 			return pData[idx];
 		}
 
-		
+		iterator& operator ++ ()
+		{
+			if (pArr->pData != pData || -1 == idx)
+				assert(nullptr);
+			
+			if (pArr->size() - 1 == idx)
+			{
+				idx = -1;
+			}
+			else
+			{
+				idx++;
+			}
+			return *this;
+		}
+
+		iterator operator ++ (int)
+		{
+			iterator copy_iter(pArr, pData, idx);
+
+			++(*this);
+
+			return copy_iter;
+
+		}
+
+		iterator& operator -- ()
+		{
+			if (pArr->pData != pData || 0 == idx)
+				assert(nullptr);
+
+			if (-1 == idx)
+			{
+				idx = pArr->size() - 1;
+			}
+			else
+			{
+				idx--;
+			}
+			return *this;
+		}
+
+		iterator operator -- (int)
+		{
+			iterator copy_iter(pArr, pData, idx);
+			--(*this);
+			return copy_iter;
+		}
+
 	};
 
 };

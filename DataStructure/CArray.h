@@ -45,6 +45,7 @@ public:
 	class iterator;
 	iterator begin();
 	iterator end();
+	iterator erase(iterator& iter);
 
 	class iterator
 	{
@@ -52,33 +53,39 @@ public:
 		CArr* pArr;
 		T* pData;
 		int idx;
+		bool bValid;
 
 	public:
 		iterator()
 			: pArr(nullptr)
 			, pData(nullptr)
 			, idx(-1)
+			, bValid(false)
 		{}
 
 		iterator(CArr* _pArr, T* _pData, int _idx)
 			: pArr(_pArr)
 			, pData(_pData)
 			, idx(_idx)
-		{}
+			, bValid(false)
+		{
+			if (-1 != idx)
+				bValid = true;
+		}
 
 		~iterator()
 		{}
 
 		T& operator * ()
 		{
-			if (pArr->pData != pData || -1 == idx)
+			if (pArr->pData != pData || -1 == idx || !bValid)
 				assert(nullptr);
 			return pData[idx];
 		}
 
 		iterator& operator ++ ()
 		{
-			if (pArr->pData != pData || -1 == idx)
+			if (pArr->pData != pData || -1 == idx || !bValid)
 				assert(nullptr);
 			
 			if (pArr->size() - 1 == idx)
@@ -104,7 +111,7 @@ public:
 
 		iterator& operator -- ()
 		{
-			if (pArr->pData != pData || 0 == idx)
+			if (pArr->pData != pData || 0 == idx || !bValid)
 				assert(nullptr);
 
 			if (-1 == idx)
@@ -137,6 +144,7 @@ public:
 			return !(*this == _otheriter);
 		}
 
+		friend class CArr;
 	};
 
 };
@@ -191,4 +199,22 @@ template<typename T>
 inline typename CArr<T>::iterator CArr<T>::end()
 {
 	return iterator(this, pData, -1);
+}
+
+template<typename T>
+inline typename CArr<T>::iterator CArr<T>::erase(iterator& iter)
+{
+	if (this != iter.pArr || -1 == iter.idx || data_count <= iter.idx)
+		assert(nullptr);
+
+
+	for (int i = iter.idx; i < data_count - 1; ++i)
+	{
+		pData[i] = pData[i + 1];
+	}
+	iter.bValid = false;
+
+	--data_count;
+
+	return iterator(this, pData, iter.idx);
 }

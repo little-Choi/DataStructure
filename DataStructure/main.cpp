@@ -14,21 +14,25 @@ int main()
 		vecInt.push_back(10);
 		vecInt.push_back(20);
 		vecInt.push_back(30);
-		vecInt.resize(10);
-
-		int* a1 = vecInt.data();
-		int a2 = vecInt[1];
-		int a3 = vecInt.size();
-
+		vector<int>::iterator veciter = vecInt.begin();
+		++veciter;
+		vector<int>::iterator veciter2 = vecInt.erase(veciter);
+		int a1 = *veciter2;
+		//*veciter;
+		
+		
 		CArr<int> arrInt;
 		arrInt.push_back(10);
 		arrInt.push_back(20);
 		arrInt.push_back(30);
-		arrInt.resize(10);
-		int* b1 = arrInt.data();
-		int b2 = arrInt[1];
-		int b3 = arrInt.size();
-		arrInt.clear();
+		CArr<int>::iterator arriter = arrInt.begin();
+		++arriter;
+		CArr<int>::iterator arriter2 = arrInt.erase(arriter);
+		int b1 = *arriter2;
+		*arriter;
+
+		
+
 
 		int k = 0;
 	}

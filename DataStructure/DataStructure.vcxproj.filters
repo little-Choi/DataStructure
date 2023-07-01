@@ -16,6 +16,9 @@
     <Filter Include="Array">
       <UniqueIdentifier>{6409dd01-2e80-42cb-9251-9b4b41ce5969}</UniqueIdentifier>
     </Filter>
+    <Filter Include="List">
+      <UniqueIdentifier>{5c25bae5-1b73-42a5-bf5b-535374d346fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -25,6 +28,9 @@
   <ItemGroup>
     <ClInclude Include="CArray.h">
       <Filter>Array</Filter>
+    </ClInclude>
+    <ClInclude Include="CList.h">
+      <Filter>List</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

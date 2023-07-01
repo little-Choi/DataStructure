@@ -1,37 +1,53 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
+#include <list>
 
 #include "CArray.h"
+#include "CList.h"
 
 using std::vector;
+using std::list;
 
 int main()
 {
-	// vector 구현
-	{
-		vector<int> vecInt;
-		vecInt.push_back(10);
-		vecInt.push_back(20);
-		vecInt.push_back(30);
-		vector<int>::iterator veciter = vecInt.begin();
-		++veciter;
-		vector<int>::iterator veciter2 = vecInt.erase(veciter);
-		int a1 = *veciter2;
-		//*veciter;
-		
-		
-		CArr<int> arrInt;
-		arrInt.push_back(10);
-		arrInt.push_back(20);
-		arrInt.push_back(30);
-		CArr<int>::iterator arriter = arrInt.begin();
-		++arriter;
-		CArr<int>::iterator arriter2 = arrInt.erase(arriter);
-		int b1 = *arriter2;
-		*arriter;
+	//// vector 구현
+	//{
+	//	vector<int> vecInt;
+	//	vecInt.push_back(10);
+	//	vecInt.push_back(20);
+	//	vecInt.push_back(30);
+	//	vector<int>::iterator veciter = vecInt.begin();
+	//	++veciter;
+	//	vector<int>::iterator veciter2 = vecInt.erase(veciter);
+	//	int a1 = *veciter2;
+	//	//*veciter;
+	//	
+	//	
+	//	CArr<int> arrInt;
+	//	arrInt.push_back(10);
+	//	arrInt.push_back(20);
+	//	arrInt.push_back(30);
+	//	CArr<int>::iterator arriter = arrInt.begin();
+	//	++arriter;
+	//	CArr<int>::iterator arriter2 = arrInt.erase(arriter);
+	//	int b1 = *arriter2;
+	//	*arriter;
 
-		
+	//	
+	//	int k = 0;
+	//}
+	{
+		list<int> listInt;
+		listInt.push_back(200);
+		listInt.push_back(300);
+		listInt.push_front(100);
+
+
+		CList<int> mylistInt;
+		mylistInt.push_back(200);
+		mylistInt.push_back(300);
+		mylistInt.push_front(100);
 
 
 		int k = 0;

@@ -64,6 +64,86 @@ public:
 	void push_front(const T& new_data);
 	int size() { return data_count; }
 
+public:
+	class iterator;
+	iterator begin();
+	iterator end();
+	iterator erase(iterator& iter);
+	iterator insert(const iterator& iter, const T& new_data);
+
+	class iterator
+	{
+	private:
+		CList<T>* pList;
+		tListNode<T>* pNode; // nullptr가 end iterator
+
+	public:
+		iterator()
+			: pList(nullptr)
+			, pNode(nullptr)
+		{}
+
+		iterator(CList<T>* _pList, tListNode<T>* _pNode)
+			: pList(_pList)
+			, pNode(_pNode)
+		{}
+
+		~iterator()
+		{}
+
+		T& operator * ()
+		{
+			return pNode->data;
+		}
+
+		bool operator == (const iterator& other_iter)
+		{
+			if (pList == other_iter.pList && pNode == other_iter->pNode)
+				return true;
+			return false;
+		}
+
+		bool operator != (const iterator& other_iter)
+		{
+			return !(*this == other_iter);
+		}
+
+		iterator& operator ++ ()
+		{
+			// end인 경우
+			if (nullptr == pNode)
+				assert(nullptr);
+			pNode = pNode->next;
+			return *this;
+		}
+
+		iterator& operator ++ (int)
+		{
+			iterator copy_iter(*this);
+
+			++(*this);
+
+			return copy_iter;
+		}
+
+		iterator& operator -- ()
+		{
+			// begin인 경우
+			if (pNode == pList->head_node)
+				assert(nullptr);
+			pNode = pNode->prev;
+			return *this;
+		}
+
+		iterator& operator -- (int)
+		{
+			iterator copy_node(*this);
+			--(*this);
+			return copy_node;
+		}
+
+		friend class CList;
+	};
 };
 
 template<typename T>
@@ -104,4 +184,43 @@ inline void CList<T>::push_front(const T& new_data)
 	}
 
 	++data_count;
+}
+
+template<typename T>
+inline typename CList<T>::iterator CList<T>::begin()
+{
+	return iterator(this, head_node);
+}
+
+template<typename T>
+inline typename CList<T>::iterator CList<T>::end()
+{
+	return iterator(this, nullptr);
+}
+
+template<typename T>
+inline typename CList<T>::iterator CList<T>::erase(iterator& iter)
+{
+	if (*this != iter.pList || nullptr == iter.pNode)
+		assert(nullptr);
+	
+	iter.pNode->prev->next = iter.pNode->next;
+	iter.pNode->next->prev = iter.pNode->prev;
+	tListNode<T>* copy_node = iter.pNode->prev;
+
+	if (iter.pNode)
+	{
+		delete iter.pNode;
+		iter.pNode = nullptr;
+
+	}
+	--data_count;
+
+	return iterator(this, copy_node);
+}
+
+template<typename T>
+inline typename CList<T>::iterator CList<T>::insert(const iterator& iter, const T& new_data)
+{
+	return iterator();
 }

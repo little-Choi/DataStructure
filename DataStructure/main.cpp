@@ -42,12 +42,19 @@ int main()
 		listInt.push_back(200);
 		listInt.push_back(300);
 		listInt.push_front(100);
+		list<int>::iterator listIter = listInt.begin();
+		int a1 = *(listIter++);
+		int a2 = *(++listIter);
+
 
 
 		CList<int> mylistInt;
 		mylistInt.push_back(200);
 		mylistInt.push_back(300);
 		mylistInt.push_front(100);
+		CList<int>::iterator mylistIter = mylistInt.begin();
+		int b1 = *(mylistIter++);
+		int b2 = *(++mylistIter);
 
 
 		int k = 0;

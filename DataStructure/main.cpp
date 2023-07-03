@@ -43,8 +43,8 @@ int main()
 		listInt.push_back(300);
 		listInt.push_front(100);
 		list<int>::iterator listIter = listInt.begin();
-		int a1 = *(listIter++);
-		int a2 = *(++listIter);
+		listIter++;
+		list<int>::iterator listIter2 = listInt.insert(listIter, 400);
 
 
 
@@ -53,8 +53,8 @@ int main()
 		mylistInt.push_back(300);
 		mylistInt.push_front(100);
 		CList<int>::iterator mylistIter = mylistInt.begin();
-		int b1 = *(mylistIter++);
-		int b2 = *(++mylistIter);
+		mylistIter++;
+		CList<int>::iterator mylistIter2 = mylistInt.insert(mylistIter, 400);
 
 
 		int k = 0;

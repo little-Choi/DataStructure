@@ -76,17 +76,25 @@ public:
 	private:
 		CList<T>* pList;
 		tListNode<T>* pNode; // nullptr가 end iterator
+		bool bValid;
 
 	public:
 		iterator()
 			: pList(nullptr)
 			, pNode(nullptr)
+			, bValid(false)
 		{}
 
 		iterator(CList<T>* _pList, tListNode<T>* _pNode)
 			: pList(_pList)
 			, pNode(_pNode)
-		{}
+			, bValid(false)
+		{
+			if (nullptr != _pList && nullptr != pNode)
+			{
+				bValid = true;
+			}
+		}
 
 		~iterator()
 		{}
@@ -98,7 +106,7 @@ public:
 
 		bool operator == (const iterator& other_iter)
 		{
-			if (pList == other_iter.pList && pNode == other_iter->pNode)
+			if (pList == other_iter.pList && pNode == other_iter.pNode)
 				return true;
 			return false;
 		}
@@ -111,13 +119,13 @@ public:
 		iterator& operator ++ ()
 		{
 			// end인 경우
-			if (nullptr == pNode)
+			if (nullptr == pNode || !bValid)
 				assert(nullptr);
 			pNode = pNode->next;
 			return *this;
 		}
 
-		iterator& operator ++ (int)
+		iterator operator ++ (int)
 		{
 			iterator copy_iter(*this);
 
@@ -129,13 +137,13 @@ public:
 		iterator& operator -- ()
 		{
 			// begin인 경우
-			if (pNode == pList->head_node)
+			if (pNode == pList->head_node || !bValid)
 				assert(nullptr);
 			pNode = pNode->prev;
 			return *this;
 		}
 
-		iterator& operator -- (int)
+		iterator operator -- (int)
 		{
 			iterator copy_node(*this);
 			--(*this);
@@ -201,7 +209,7 @@ inline typename CList<T>::iterator CList<T>::end()
 template<typename T>
 inline typename CList<T>::iterator CList<T>::erase(iterator& iter)
 {
-	if (*this != iter.pList || nullptr == iter.pNode)
+	if (this != iter.pList || nullptr == iter.pNode)
 		assert(nullptr);
 	
 	iter.pNode->prev->next = iter.pNode->next;
@@ -222,5 +230,26 @@ inline typename CList<T>::iterator CList<T>::erase(iterator& iter)
 template<typename T>
 inline typename CList<T>::iterator CList<T>::insert(const iterator& iter, const T& new_data)
 {
-	return iterator();
+	if (this != iter.pList || nullptr == iter.pNode)
+		assert(nullptr);
+
+	tListNode<T>* new_node = new tListNode<T>(new_data, nullptr, nullptr);
+
+	// iterator가 headnode 인 경우
+	if (iter.pNode == head_node)
+	{
+		new_node->next = head_node;
+		head_node->prev = new_node;
+		head_node = new_node;
+	}
+	else
+	{
+		iter.pNode->prev->next = new_node;
+		new_node->prev = iter.pNode->prev;
+		iter.pNode->prev = new_node;
+		new_node->next = iter.pNode;
+	}
+
+	++data_count;
+	return iterator(this, new_node);
 }

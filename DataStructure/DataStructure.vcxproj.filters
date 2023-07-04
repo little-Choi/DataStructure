@@ -19,6 +19,9 @@
     <Filter Include="List">
       <UniqueIdentifier>{5c25bae5-1b73-42a5-bf5b-535374d346fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BST">
+      <UniqueIdentifier>{663e40ff-5ed6-4ba9-baf0-167722e934f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -31,6 +34,9 @@
     </ClInclude>
     <ClInclude Include="CList.h">
       <Filter>List</Filter>
+    </ClInclude>
+    <ClInclude Include="CBST.h">
+      <Filter>BST</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 
 #include "CArray.h"
 #include "CList.h"
+#include "CBST.h"
 
 using std::vector;
 using std::list;
@@ -37,29 +38,45 @@ int main()
 	//	
 	//	int k = 0;
 	//}
+
+	//// list 구현
+	//{
+	//	list<int> listInt;
+	//	listInt.push_back(200);
+	//	listInt.push_back(300);
+	//	listInt.push_front(100);
+	//	list<int>::iterator listIter = listInt.begin();
+	//	listIter++;
+	//	list<int>::iterator listIter2 = listInt.insert(listIter, 400);
+
+
+
+	//	CList<int> mylistInt;
+	//	mylistInt.push_back(200);
+	//	mylistInt.push_back(300);
+	//	mylistInt.push_front(100);
+	//	CList<int>::iterator mylistIter = mylistInt.begin();
+	//	mylistIter++;
+	//	CList<int>::iterator mylistIter2 = mylistInt.insert(mylistIter, 400);
+
+
+	//	int k = 0;
+	//}
+
+	// BST 구현
 	{
-		list<int> listInt;
-		listInt.push_back(200);
-		listInt.push_back(300);
-		listInt.push_front(100);
-		list<int>::iterator listIter = listInt.begin();
-		listIter++;
-		list<int>::iterator listIter2 = listInt.insert(listIter, 400);
+		CBST<int, int> bstint;
 
-
-
-		CList<int> mylistInt;
-		mylistInt.push_back(200);
-		mylistInt.push_back(300);
-		mylistInt.push_front(100);
-		CList<int>::iterator mylistIter = mylistInt.begin();
-		mylistIter++;
-		CList<int>::iterator mylistIter2 = mylistInt.insert(mylistIter, 400);
-
+		bstint.insert(make_bstpair(100, 0)); //     100
+		bstint.insert(make_bstpair(150, 0)); //  50      150
+		bstint.insert(make_bstpair(50, 0)); // 25  75  125  175 
+		bstint.insert(make_bstpair(25, 0));
+		bstint.insert(make_bstpair(75, 0));
+		bstint.insert(make_bstpair(125, 0));
+		bstint.insert(make_bstpair(175, 0));
 
 		int k = 0;
 	}
-
 
 
 
